@@ -23,10 +23,11 @@ export default function TextReveal({
   className,
   type = "word",
   delay = 0,
-  duration = 0.5,
-  stagger = 0.05,
+  duration = 0.8, // Increased for a breathing, cinematic entrance
+  stagger = 0.04, // Slightly tightened for smoother chaining
   once = true,
 }: TextRevealProps) {
+  // If type is word, split by spaces (spaces are removed). If character, split by every char.
   const elements = type === "word" ? text.split(" ") : text.split("");
 
   const container = {
@@ -40,17 +41,22 @@ export default function TextReveal({
   const child = {
     hidden: {
       opacity: 0,
-      y: 20,
-      filter: "blur(4px)",
+      y: 40, // Increased fall-off
+      rotateX: 60, // 3D Spatial Tilt
+      scale: 0.9, // Deep Z-axis start
+      filter: "blur(12px)", // Heavy cinematic lens blur
     },
     visible: {
       opacity: 1,
       y: 0,
+      rotateX: 0,
+      scale: 1,
       filter: "blur(0px)",
       transition: {
         type: "spring",
-        damping: 12,
-        stiffness: 100,
+        damping: 20, // Heavier, more authoritative settle
+        stiffness: 120,
+        mass: 1.5,
         duration: duration,
       },
     },
@@ -58,18 +64,24 @@ export default function TextReveal({
 
   return (
     <motion.div
-      className={cn("flex flex-wrap", className)}
+      // Added perspective so the rotateX transform acts like true 3D space
+      className={cn("flex flex-wrap [perspective:1000px]", className)}
       variants={container}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: "-50px" }}
+      viewport={{ once, margin: "-10%" }}
     >
       {elements.map((element, index) => (
         <motion.span
           key={index}
           variants={child}
-          className={cn("inline-block", type === "word" && "mr-1")}
+          className={cn(
+            "inline-block origin-bottom will-change-[transform,filter,opacity]", 
+            // Use em-based margin for words so spacing scales perfectly with font-size
+            type === "word" && "mr-[0.25em]"
+          )}
         >
+          {/* Preserve explicit spaces if splitting by character */}
           {element === " " ? "\u00A0" : element}
         </motion.span>
       ))}

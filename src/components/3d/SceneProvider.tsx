@@ -19,22 +19,34 @@ export default function SceneProvider({
 }: SceneProviderProps) {
   return (
     <div className={className} style={{ pointerEvents: "none" }}>
-      <Canvas dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
+      <Canvas 
+        dpr={[1, 2]} 
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: "high-performance",
+          stencil: false,
+          depth: true
+        }}
+        performance={{ min: 0.5 }} // Automatically scales down DPR if frame rates drop
+      >
         <PerspectiveCamera makeDefault position={cameraPosition} fov={fov} />
         
-        <ambientLight intensity={0.6} color="#e0f2fe" />
-        <directionalLight position={[5, 10, -5]} intensity={1.5} color="#38bdf8" />
-        <spotLight position={[-5, 5, 5]} angle={0.5} penumbra={1} intensity={2} color="#8b5cf6" />
+        {/* Cinematic Lighting Rig */}
+        <ambientLight intensity={0.4} color="#bae6fd" />
+        <directionalLight position={[5, 10, -5]} intensity={2.0} color="#38bdf8" />
+        <spotLight position={[-6, 6, 6]} angle={0.6} penumbra={1} intensity={2.5} color="#818cf8" />
+        <pointLight position={[0, -5, 5]} intensity={1.0} color="#0284c7" />
         
         <Suspense fallback={null}>
-          <Environment preset="city" environmentIntensity={0.5} />
+          <Environment preset="city" environmentIntensity={0.4} />
           {children}
           <ContactShadows 
-            position={[0, -2.5, 0]} 
-            opacity={0.6} 
-            scale={20} 
-            blur={2.5} 
-            far={4} 
+            position={[0, -2.8, 0]} 
+            opacity={0.7} 
+            scale={22} 
+            blur={3.0} 
+            far={4.5} 
             color="#0ea5e9"
           />
         </Suspense>

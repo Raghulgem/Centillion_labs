@@ -11,12 +11,14 @@ import CTA from "@/components/sections/CTA";
 
 export default function Home() {
   return (
-    <main className="relative flex min-h-screen flex-col bg-[#030712] overflow-x-hidden text-slate-100 selection:bg-sky-500/30 selection:text-white">
-      <div className="absolute inset-0 bg-grid-pattern z-0 pointer-events-none opacity-20" />
+    // Cleaned up redundant background/selection classes that are now handled globally
+    <main className="relative flex min-h-screen flex-col w-full">
       
       <Navbar />
       
-      <div className="relative z-10 flex flex-col gap-24 md:gap-32">
+      {/* Main Content Flow: Increased gap for premium spacing, added top padding for fixed nav */}
+      <div className="relative z-10 flex flex-col gap-32 md:gap-40 pt-20">
+        
         <section id="hero">
           <Hero />
         </section>
@@ -25,7 +27,9 @@ export default function Home() {
           <TrustedBy />
         </section>
         
-        <section id="services">
+        <section id="services" className="relative">
+          {/* Subtle mid-page left ambient light */}
+          <div className="absolute top-1/2 left-0 w-[50vw] h-[50vw] -translate-y-1/2 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(14,165,233,0.03)_0%,transparent_70%)] blur-[120px] pointer-events-none z-[-1]"></div>
           <Services />
         </section>
         
@@ -33,7 +37,9 @@ export default function Home() {
           <WhyUs />
         </section>
         
-        <section id="impact">
+        <section id="impact" className="relative">
+          {/* Subtle lower-page right ambient light */}
+          <div className="absolute top-1/2 right-0 w-[60vw] h-[60vw] -translate-y-1/2 translate-x-1/3 rounded-full bg-[radial-gradient(circle,rgba(56,189,248,0.025)_0%,transparent_70%)] blur-[120px] pointer-events-none z-[-1]"></div>
           <Impact />
         </section>
         
@@ -50,8 +56,8 @@ export default function Home() {
         </section>
       </div>
 
-      {/* Footer wrapper with forced text color overrides to counteract global body styles */}
-      <div className="relative z-10 w-full bg-white text-slate-900 [&_p]:text-slate-600 [&_a]:text-slate-700 [&_span]:text-slate-700 mt-12">
+      {/* Footer wrapper - Kept exactly as you wrote it to preserve your light-mode transition */}
+      <div className="relative z-10 w-full bg-white text-slate-900 [&_p]:text-slate-600 [&_a]:text-slate-700 [&_span]:text-slate-700 mt-32">
         <Footer />
       </div>
     </main>

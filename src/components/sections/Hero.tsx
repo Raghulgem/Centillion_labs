@@ -30,12 +30,33 @@ const badges = [
 ];
 
 export default function Hero() {
+  // Staggered cinematic container for the left-side text
+  const textContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
+    },
+  };
+
+  // Heavy blur & 3D tilt for individual text elements
+  const textItem = {
+    hidden: { opacity: 0, y: 30, filter: "blur(12px)", rotateX: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      rotateX: 0,
+      transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] },
+    },
+  };
+
   return (
     <section className="relative min-h-screen pt-32 pb-20 flex items-center overflow-hidden bg-[#030712] text-white">
       {/* Base Background Gradient */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-950/40 via-[#030712]/90 to-[#030712] z-0"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/40 via-[#030712]/90 to-[#030712] z-0"></div>
       
-      {/* Dynamic Light Flow Effect */}
+      {/* Animated Light Flow Effect */}
       <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
         <svg
           className="absolute w-full h-full opacity-80"
@@ -43,6 +64,7 @@ export default function Hero() {
           preserveAspectRatio="none"
         >
           <defs>
+            {/* Maintained your exact color gradient */}
             <linearGradient id="light-flow-grad" x1="0%" y1="100%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0" />
               <stop offset="20%" stopColor="#0ea5e9" stopOpacity="0.8" />
@@ -58,18 +80,23 @@ export default function Hero() {
             </filter>
           </defs>
           
-          {/* Broad background glow */}
-          <path
+          {/* Broad background glow - draws in smoothly */}
+          <motion.path
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.6 }}
+            transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             d="M -10 90 Q 30 110, 60 50 T 110 -10"
             fill="none"
             stroke="url(#light-flow-grad)"
             strokeWidth="6"
             filter="url(#flow-glow)"
-            className="opacity-60"
           />
           
           {/* Tighter core flow */}
-          <path
+          <motion.path
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
             d="M -10 90 Q 30 110, 60 50 T 110 -10"
             fill="none"
             stroke="url(#light-flow-grad)"
@@ -78,70 +105,71 @@ export default function Hero() {
           />
           
           {/* Bright inner core */}
-          <path
+          <motion.path
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.5 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
             d="M -10 90 Q 30 110, 60 50 T 110 -10"
             fill="none"
             stroke="#ffffff"
             strokeWidth="0.2"
             filter="url(#flow-blur)"
-            className="opacity-50"
           />
         </svg>
       </div>
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
-        <div className="flex flex-col items-start pt-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-3 mb-6"
-          >
+        {/* Staggered Content Container with 3D Perspective */}
+        <motion.div 
+          className="flex flex-col items-start pt-10 [perspective:1000px]"
+          variants={textContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={textItem} className="flex items-center gap-3 mb-6 origin-bottom">
             <div className="h-[1px] w-8 bg-[#38bdf8]"></div>
-            <p className="text-xs tracking-[0.2em] text-slate-300 uppercase font-bold">
+            <p className="text-xs tracking-[0.2em] text-[#38bdf8] uppercase font-bold drop-shadow-[0_0_8px_rgba(56,189,248,0.5)]">
               Data Intelligence. Real Business Impact.
             </p>
           </motion.div>
 
-          <h1 className="text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.1] mb-6 relative z-20">
+          <motion.h1 variants={textItem} className="text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight leading-[1.1] mb-6 relative z-20 origin-bottom">
             <span className="block text-white drop-shadow-md">From Data</span>
-            <span className="block text-gradient drop-shadow-md">to What's Next.</span>
-          </h1>
+            <span className="block text-gradient drop-shadow-md pb-2">to What's Next.</span>
+          </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-400 max-w-lg mb-10 leading-relaxed relative z-20"
-          >
+          <motion.p variants={textItem} className="text-lg md:text-xl text-slate-400 max-w-lg mb-10 leading-relaxed relative z-20 origin-bottom">
             Databricks consulting to modernize your data, accelerate AI, and unlock real business outcomes.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-wrap items-center gap-5 mb-20 relative z-20"
-          >
-            <button className="group px-8 py-4 bg-white text-gray-900 font-bold rounded-full hover:bg-slate-200 transition-all flex items-center gap-2 shadow-[0_0_25px_rgba(255,255,255,0.25)]">
+          <motion.div variants={textItem} className="flex flex-wrap items-center gap-5 mb-20 relative z-20 origin-bottom">
+            {/* Primary Spring-Loaded Button */}
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              className="group px-8 py-4 bg-white text-[#030712] font-bold rounded-full hover:bg-slate-100 transition-colors flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+            >
               Get Started 
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="group px-8 py-4 bg-white/5 border border-white/15 text-white font-medium rounded-full hover:bg-white/10 transition-all flex items-center gap-3 glass-card">
-              <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-colors">
+            </motion.button>
+            
+            {/* Secondary Glass Button */}
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              className="group px-8 py-4 bg-white/5 border border-white/10 text-white font-medium rounded-full hover:bg-white/10 transition-colors flex items-center gap-3 glass-card"
+            >
+              <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-white/20 group-hover:scale-110 transition-all duration-300">
                 <Play className="w-3 h-3 text-white fill-white" />
               </div>
               Watch Video
-            </button>
+            </motion.button>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 w-full pt-8 border-t border-white/10 relative z-20"
-          >
+          <motion.div variants={textItem} className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 w-full pt-8 border-t border-white/10 relative z-20 origin-bottom">
             {stats.map((stat, idx) => (
               <div key={idx} className="flex flex-col gap-1">
                 <div className="text-2xl md:text-3xl font-bold text-white flex items-center min-h-[36px]">
@@ -151,8 +179,9 @@ export default function Hero() {
               </div>
             ))}
           </motion.div>
-        </div>
+        </motion.div>
 
+        {/* 3D Scene & Floating UI */}
         <div className="relative h-[600px] w-full hidden lg:block">
           <SceneProvider className="absolute inset-[-20%] z-0">
             <HeroCube />
@@ -168,8 +197,9 @@ export default function Hero() {
                 yOffset={10 + Math.random() * 10}
                 className={cn("absolute pointer-events-auto", badge.position)}
               >
-                <div className="glass-card px-4 py-3 rounded-xl flex items-center gap-3 border border-white/10 hover:border-white/30 transition-colors cursor-pointer group bg-[#030712]/70">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform">
+                {/* Applied the heavy glass-card logic for maximum depth */}
+                <div className="glass-card px-4 py-3 rounded-xl flex items-center gap-3 transition-colors cursor-pointer group">
+                  <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/5 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/10 transition-all duration-300">
                     {badge.icon}
                   </div>
                   <div className="flex flex-col">
@@ -180,13 +210,24 @@ export default function Hero() {
               </FloatingCard>
             ))}
 
+            {/* Handwritten Note - Added organic float animation */}
             <motion.div
               initial={{ opacity: 0, rotate: -15, scale: 0.8 }}
-              animate={{ opacity: 1, rotate: -15, scale: 1 }}
-              transition={{ duration: 1, delay: 1.5 }}
+              animate={{ 
+                opacity: 1, 
+                rotate: [-15, -12, -15], 
+                scale: 1,
+                y: [0, -5, 0]
+              }}
+              transition={{ 
+                opacity: { duration: 1, delay: 1.5 },
+                scale: { duration: 1, delay: 1.5, type: "spring" },
+                rotate: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 },
+                y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }
+              }}
               className="absolute bottom-[5%] right-[20%] text-right"
             >
-              <p className="text-[#38bdf8] font-handwriting text-xl tracking-wider opacity-90" style={{ fontFamily: "'Caveat', cursive, sans-serif" }}>
+              <p className="text-[#38bdf8] font-handwriting text-xl tracking-wider opacity-90 drop-shadow-[0_0_10px_rgba(56,189,248,0.3)]" style={{ fontFamily: "'Caveat', cursive, sans-serif" }}>
                 SAME DATA.<br/>BIGGER POSSIBILITIES.
               </p>
               <svg className="w-16 h-16 absolute -bottom-8 -right-8 text-[#38bdf8] opacity-60 transform -rotate-12" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
