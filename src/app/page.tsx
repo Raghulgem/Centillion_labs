@@ -8,12 +8,19 @@ import Impact from "@/components/sections/Impact";
 import Process from "@/components/sections/Process";
 import Success from "@/components/sections/Success";
 import CTA from "@/components/sections/CTA";
+import Link from "next/link"; // Import Next.js Link component
 
 export default function Home() {
   return (
-    // Cleaned up redundant background/selection classes that are now handled globally
     <main className="relative flex min-h-screen flex-col w-full">
       
+      {/* Your Floating Databricks Button */}
+      <Link href="/databrickconsultant" className="databrick-nav-pill">
+        <span className="dot"></span>
+        <span>Databricks Consultant</span>
+        <span className="arrow">&rarr;</span>
+      </Link>
+
       <Navbar />
       
       {/* Main Content Flow: Increased gap for premium spacing, added top padding for fixed nav */}

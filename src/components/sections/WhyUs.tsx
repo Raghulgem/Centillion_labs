@@ -76,7 +76,7 @@ export default function WhyUs() {
   };
 
   return (
-    <section className="py-32 px-6 relative overflow-hidden min-h-screen flex items-center bg-[#030712] text-white bg-noise z-10">
+    <section id="expertise" className="py-32 px-6 relative overflow-hidden min-h-screen flex items-center bg-[#030712] text-white bg-noise z-10">
       
       {/* Advanced Cinematic Background Overlays */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -158,14 +158,16 @@ export default function WhyUs() {
         </div>
 
         {/* Right Content: Advanced 3D Hologram & Cinematic Text */}
-        <div className="lg:col-span-4 hidden lg:flex flex-col items-center justify-center gap-12 pt-10 [perspective:1000px]">
+        <div className="lg:col-span-4 hidden lg:flex flex-col items-center justify-center gap-16 pt-10 [perspective:1000px]">
           
-          <ScrollReveal direction="left" distance={40} delay={0.6} className="text-center z-20">
-            <p className="text-4xl lg:text-[2.75rem] text-white/90 leading-tight transform -rotate-6 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]" style={{ fontFamily: "'Caveat', cursive, sans-serif" }}>
-              Higher <br/>
-              Data Peaks. <br/>
-              <span className="text-[#38bdf8] drop-shadow-[0_0_15px_rgba(56,189,248,0.6)]">Brighter <br/> Business.</span>
-            </p>
+          {/* PROFESSIONAL FONT UPDATE: Clean, Extrabold, Straight alignment */}
+          <ScrollReveal direction="left" distance={40} delay={0.6} className="text-center z-20 w-full">
+            <h3 className="text-4xl lg:text-[2.75rem] font-extrabold font-sans tracking-tight text-white leading-[1.1] drop-shadow-xl mb-2">
+              Higher <br/> Data Peaks.
+            </h3>
+            <h3 className="text-4xl lg:text-[2.75rem] font-extrabold font-sans tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] to-cyan-400 leading-[1.1] drop-shadow-2xl">
+              Brighter <br/> Business.
+            </h3>
           </ScrollReveal>
           
           {/* True 3D Holographic Construct */}

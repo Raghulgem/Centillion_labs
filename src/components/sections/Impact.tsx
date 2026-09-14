@@ -14,8 +14,8 @@ function cn(...inputs: ClassValue[]) {
 }
 
 const stats = [
-  { value: "100+", description: "Years of combined expertise" },
-  { value: "30+", description: "Global clients" },
+  { value: "30+", description: "Years of combined experience" },
+  { value: "11+", description: "Global clients" },
   { value: "160+", description: "Databricks consultants deployed" },
   { value: "24hr", description: "Average profile turnaround" },
 ];
@@ -164,7 +164,7 @@ export default function Impact() {
   };
 
   return (
-    <section className="relative py-28 px-6 overflow-hidden bg-white text-slate-900 rounded-[2.5rem] lg:rounded-[3.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)] mx-2 lg:mx-6 my-12 z-20">
+    <section id="insights" className="relative py-28 px-6 overflow-hidden bg-white text-slate-900 rounded-[2.5rem] lg:rounded-[3.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)] mx-2 lg:mx-6 my-12 z-20">
       
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_right,_rgba(240,249,255,1)_0%,_rgba(255,255,255,0)_70%)]"></div>

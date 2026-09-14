@@ -31,6 +31,19 @@ export default function Navbar() {
     setIsScrolled(latest > 50);
   });
 
+  // Smooth scroll handler to ensure perfect routing to sections
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.replace("#", "");
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        elem.scrollIntoView({ behavior: "smooth" });
+      }
+      setMobileMenuOpen(false); // Close mobile menu after clicking
+    }
+  };
+
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -46,12 +59,12 @@ export default function Navbar() {
         {/* Brand / Logo */}
         <motion.a 
           href="#hero" 
-          className="flex items-center gap-4 z-50 group"
+          onClick={(e) => handleScroll(e, "#hero")}
+          className="flex items-center gap-4 z-50 group outline-none"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >
-          {/* Increased size further to h-14 w-14 (56px) */}
           <div className="relative h-14 w-14 flex items-center justify-center">
             <Image 
               src="/images/logo.png" 
@@ -78,9 +91,10 @@ export default function Navbar() {
             <a
               key={link.name}
               href={link.href}
+              onClick={(e) => handleScroll(e, link.href)}
               onMouseEnter={() => setHoveredLink(link.name)}
               onMouseLeave={() => setHoveredLink(null)}
-              className="relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors rounded-full"
+              className="relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors rounded-full outline-none"
             >
               {hoveredLink === link.name && (
                 <motion.div
@@ -98,10 +112,11 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center">
           <motion.a
             href="#cta"
+            onClick={(e) => handleScroll(e, "#cta")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="group relative inline-flex items-center gap-2 px-6 py-2.5 bg-white/5 border border-white/10 hover:border-white/20 text-white text-sm font-medium rounded-full transition-colors overflow-hidden"
+            className="group relative inline-flex items-center gap-2 px-6 py-2.5 bg-white/5 border border-white/10 hover:border-white/20 text-white text-sm font-medium rounded-full transition-colors overflow-hidden outline-none"
           >
             <span className="relative z-10 flex items-center gap-2">
               Let's Talk
@@ -113,7 +128,7 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="lg:hidden text-white z-50 p-2 hover:bg-white/10 rounded-full transition-colors relative"
+          className="lg:hidden text-white z-50 p-2 hover:bg-white/10 rounded-full transition-colors relative outline-none"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -144,7 +159,7 @@ export default function Navbar() {
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleScroll(e, link.href)}
                   variants={{
                     hidden: { opacity: 0, y: 20, scale: 0.95, filter: "blur(8px)" },
                     visible: { 
@@ -152,7 +167,7 @@ export default function Navbar() {
                       transition: { type: "spring", stiffness: 300, damping: 24 } 
                     }
                   }}
-                  className="text-2xl font-medium text-slate-300 hover:text-white transition-colors"
+                  className="text-2xl font-medium text-slate-300 hover:text-white transition-colors outline-none"
                 >
                   {link.name}
                 </motion.a>
@@ -160,12 +175,12 @@ export default function Navbar() {
               
               <motion.a
                 href="#cta"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => handleScroll(e, "#cta")}
                 variants={{
                   hidden: { opacity: 0, y: 20 },
                   visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
                 }}
-                className="mt-8 px-8 py-3.5 bg-gradient-to-r from-[#38bdf8] to-[#0ea5e9] hover:opacity-90 text-gray-900 font-bold rounded-full transition-opacity flex items-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.3)]"
+                className="mt-8 px-8 py-3.5 bg-gradient-to-r from-[#38bdf8] to-[#0ea5e9] hover:opacity-90 text-gray-900 font-bold rounded-full transition-opacity flex items-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.3)] outline-none"
               >
                 Let's Talk <ArrowRight className="w-5 h-5" />
               </motion.a>

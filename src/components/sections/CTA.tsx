@@ -34,7 +34,7 @@ export default function CTA() {
   };
 
   return (
-    <section className="py-16 px-6 relative bg-white text-slate-900 rounded-[2.5rem] lg:rounded-[3.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)] mx-2 lg:mx-6 my-12 mb-24 z-20 overflow-hidden">
+    <section id="about" className="py-16 px-6 relative bg-white text-slate-900 rounded-[2.5rem] lg:rounded-[3.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.05)] mx-2 lg:mx-6 my-12 mb-24 z-20 overflow-hidden">
       
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,_rgba(240,249,255,1)_0%,_rgba(255,255,255,0)_70%)]"></div>
@@ -89,7 +89,7 @@ export default function CTA() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className="group px-7 py-3.5 bg-white text-[#030712] font-bold rounded-full hover:bg-slate-100 transition-colors flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] text-sm"
+                  className="group px-7 py-3.5 bg-white text-[#030712] font-bold rounded-full hover:bg-slate-100 transition-colors flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] text-sm cursor-pointer outline-none"
                 >
                   Request Profiles 
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -100,7 +100,7 @@ export default function CTA() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className="group px-7 py-3.5 bg-transparent border border-white/20 text-white font-medium rounded-full hover:bg-white/5 transition-colors text-sm backdrop-blur-md"
+                  className="group px-7 py-3.5 bg-transparent border border-white/20 text-white font-medium rounded-full hover:bg-white/5 transition-colors text-sm backdrop-blur-md cursor-pointer outline-none"
                 >
                   Talk to an Expert
                 </motion.button>
